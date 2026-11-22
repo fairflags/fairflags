@@ -15,6 +15,10 @@ async function retry(fn) { for (let i = 0; i < 6; i++) { try { return await fn()
 
 // tournament config: round 1 starts when the owner sets it; until then scores are "since the pools opened"
 const CUP = fs.existsSync("cup-config.json") ? JSON.parse(fs.readFileSync("cup-config.json", "utf8")) : { start: null, roundHours: 48, snapshotWindowHours: 12 };
+// effective rules = published defaults + optional overrides from cup-config.json ("rules": {...}, e.g. a relaxed devnet test) + the public shared-funder list
+const SHARED = fs.existsSync("shared-funders.json") ? JSON.parse(fs.readFileSync("shared-funders.json", "utf8")) : [];
+const EFFECTIVE = { ...RULES, ...(CUP.rules || {}), sharedFunders: SHARED.map((s) => s.address) };
+const TEST_MODE = !!CUP.rules;
 
 function pools() {
   const p = fs.existsSync("out/pools-devnet.json") ? JSON.parse(fs.readFileSync("out/pools-devnet.json", "utf8")) : [];
@@ -77,7 +81,7 @@ export async function runIndex() {
     const rs = start ? start + r * CUP.roundHours * 3600 : 0, re = start ? rs + CUP.roundHours * 3600 : now + 1;
     const status = !start ? "preview" : now < rs ? "upcoming" : now < re ? "live" : "finished";
     const snapT = status === "finished" ? snapshotTime(`round-${r}-${CUP.start}`, re - CUP.snapshotWindowHours * 3600, re) : now; // MVP: deterministic seed; real cup: a future block hash
-    const sc = status === "upcoming" ? {} : scoreRound(trades, wallets, alive, rs, re, snapT);
+    const sc = status === "upcoming" ? {} : scoreRound(trades, wallets, alive, rs, re, snapT, EFFECTIVE);
     const matches = [];
     for (let i = 0; i < alive.length; i += 2) {
       const a = alive[i], b = alive[i + 1];
@@ -89,7 +93,7 @@ export async function runIndex() {
     alive = matches.map((m) => m.winner);
   }
   const fees = trades.reduce((s, t) => s + t.sol * 0.008, 0);     // pool keeps 0.8% of each trade (1% fee - 20% protocol share)
-  const out = { updated: now, network: "devnet", rules: RULES, cup: CUP, pools: [...P.values()].map((p) => ({ symbol: p.symbol, pair: p.pair, mint: p.mint })), trades: trades.length,
+  const out = { updated: now, network: "devnet", rules: EFFECTIVE, testMode: TEST_MODE, sharedFunders: SHARED, cup: CUP, pools: [...P.values()].map((p) => ({ symbol: p.symbol, pair: p.pair, mint: p.mint })), trades: trades.length,
     treasury: { feesSol: +fees.toFixed(6), organiserSharePct: 12.5, prizeSharePct: 87.5, prizeSol: +(fees * 0.875).toFixed(6), organiserSol: +(fees * 0.125).toFixed(6) }, rounds };
   fs.writeFileSync("out/scoreboard.json", JSON.stringify(out));
   fs.writeFileSync(CACHE, JSON.stringify(cache));

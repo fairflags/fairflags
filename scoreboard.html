@@ -44,6 +44,7 @@
     <div class="card"><b id="prize">-</b><span>prize pool (SOL)</span></div>
     <div class="card"><b id="org">-</b><span>organiser share (SOL, disclosed)</span></div>
   </div>
+  <div id="testmode" style="display:none;background:#2d2109;border:1px solid #d29922;color:#f0d58a;border-radius:10px;padding:10px 14px;margin:14px 0"></div>
   <div id="rounds"></div>
   <details><summary>Scoring rules</summary><div id="rules"></div></details>
   <details><summary>Pools (devnet addresses)</summary><div id="pools"></div></details>
@@ -75,7 +76,10 @@ async function load() {
       R.appendChild(g);
     }
     const ru = d.rules;
-    document.getElementById("rules").innerHTML = `<p>A buyer counts if: bought at least ${ru.minBuySol} SOL in the round; wallet older than ${ru.minWalletAgeDays} days with ${ru.minWalletTxs}+ transactions; not one of more than ${ru.clusterMax} buyers funded by the same wallet; not in a block bundle of more than ${ru.bundleMax} buyers; still holds at least ${ru.holdShare * 100}% of what it bought at the snapshot. Ties: net SOL put in. The snapshot is a random moment in the last ${d.cup.snapshotWindowHours} hours of the round, fixed by a future block hash.</p>`;
+    const tm = document.getElementById("testmode");
+    if (d.testMode) { tm.style.display = "block"; tm.innerHTML = `<b>Test mode.</b> Relaxed rules for a devnet test (wallet age ${ru.minWalletAgeDays}+ days, ${ru.minWalletTxs}+ transactions). The real cup uses 7 days and 20 transactions.`; } else tm.style.display = "none";
+    const sf = (d.sharedFunders || []).map((s) => `<div><code>${s.address}</code> ${s.label || ""}</div>`).join("");
+    document.getElementById("rules").innerHTML = `<p>A buyer counts if: bought at least ${ru.minBuySol} SOL in the round; wallet older than ${ru.minWalletAgeDays} days with ${ru.minWalletTxs}+ transactions; not one of more than ${ru.clusterMax} buyers funded by the same wallet; not in a block bundle of more than ${ru.bundleMax} buyers; still holds at least ${ru.holdShare * 100}% of what it bought at the snapshot. Ties: net SOL put in. The snapshot is a random moment in the last ${d.cup.snapshotWindowHours} hours of the round, fixed by a future block hash.</p>${sf ? "<p>Shared funders (exchanges, faucet) never count as a farm:</p>" + sf : ""}`;
     document.getElementById("pools").innerHTML = d.pools.map((p) => `<div><b>${p.symbol}</b> pool <code>${p.pair}</code></div>`).join("");
   } catch (e) { document.getElementById("rounds").innerHTML = `<p class="err">Could not load the scoreboard: ${e.message}</p>`; }
 }

@@ -1,0 +1,1 @@
+{ "start": null, "roundHours": 48, "snapshotWindowHours": 12, "rules": { "minWalletAgeDays": 1, "minWalletTxs": 5 } }

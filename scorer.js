@@ -9,6 +9,7 @@ export const RULES = {
   clusterMax: 3,            // more than this many buyers of the same coin funded by the same wallet = a farm: all of them are excluded
   bundleMax: 3,             // more than this many buyers of the same coin in the same slot = a bundle: all of them are excluded
   holdShare: 0.5,           // must still hold at least half of what it bought at the snapshot
+  sharedFunders: [],        // public list of wallets that fund many unrelated people (exchanges, the devnet faucet): never counted as a farm
 };
 
 /** Snapshot time inside [winStart, roundEnd): derived from a block hash that does not exist yet when the round is announced (commit-reveal: the slot number is published in advance). */
@@ -32,10 +33,11 @@ export function scoreRound(trades, wallets, coins, roundStart, roundEnd, snapT, 
     const buyers = new Map();
     for (const x of inRound) if (x.side === "buy") { const b = buyers.get(x.wallet) || { sol: 0, tokens: 0, slots: new Set() }; b.sol += x.sol; b.tokens += x.tokens; b.slots.add(x.slot); buyers.set(x.wallet, b); }
     const bySlot = new Map(), byFunder = new Map();
+    const shared = new Set(rules.sharedFunders || []);
     for (const [w, b] of buyers) {
       for (const s of b.slots) bySlot.set(s, (bySlot.get(s) || 0) + 1);
       const f = wallets.get(w)?.funder;
-      if (f) byFunder.set(f, (byFunder.get(f) || 0) + 1);
+      if (f && !shared.has(f)) byFunder.set(f, (byFunder.get(f) || 0) + 1);
     }
     const excluded = { small: 0, young: 0, cluster: 0, bundle: 0, sold: 0 };
     const qualified = [];
@@ -44,7 +46,7 @@ export function scoreRound(trades, wallets, coins, roundStart, roundEnd, snapT, 
       const info = wallets.get(w) || {};
       if (b.sol < rules.minBuySol) { excluded.small++; continue; }
       if ((info.ageDays ?? 0) < rules.minWalletAgeDays || (info.txs ?? 0) < rules.minWalletTxs) { excluded.young++; continue; }
-      if (info.funder && byFunder.get(info.funder) > rules.clusterMax) { excluded.cluster++; continue; }
+      if (info.funder && !shared.has(info.funder) && byFunder.get(info.funder) > rules.clusterMax) { excluded.cluster++; continue; }
       if ([...b.slots].some((s) => bySlot.get(s) > rules.bundleMax)) { excluded.bundle++; continue; }
       const held = tr.filter((x) => x.wallet === w && x.t < snapT).reduce((s, x) => s + (x.side === "buy" ? x.tokens : -x.tokens), 0);
       if (held < b.tokens * rules.holdShare) { excluded.sold++; continue; }
