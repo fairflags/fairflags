@@ -1,4 +1,4 @@
-// Nations Cup scoring (pure functions, no chain access). Score of a coin in a round = number of QUALIFIED BUYERS still holding at the snapshot; tie-breaker = net SOL put in by them.
+// FairFlags scoring (pure functions, no chain access). Score of a coin in a round = number of QUALIFIED BUYERS still holding at the snapshot; tie-breaker = net SOL put in by them.
 // Trading volume is deliberately NOT part of the score: bot farms fake it cheaply.
 import crypto from "crypto";
 

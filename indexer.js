@@ -1,4 +1,4 @@
-// Reads every swap of every Nations Cup pool (DEVNET), turns them into trades, looks up the buyers' wallet history, and scores the bracket with scorer.js.
+// Reads every swap of every FairFlags pool (DEVNET), turns them into trades, looks up the buyers' wallet history, and scores the bracket with scorer.js.
 // Output: out/scoreboard.json (read by the scoreboard page). Pools from out/pools-devnet.json (+ the first prototype pool CARG). Read-only: never signs anything.
 import fs from "fs";
 import { Connection, PublicKey } from "@solana/web3.js";
