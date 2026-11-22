@@ -58,7 +58,8 @@ async function walletInfo(w) {
     const keys = tx?.transaction.message.staticAccountKeys || tx?.transaction.message.accountKeys || [];
     if (keys[0] && keys[0].toBase58() !== w) funder = keys[0].toBase58();
   }
-  const info = { ageDays: oldest?.blockTime ? (Date.now() / 1000 - oldest.blockTime) / 86400 : 0, txs: sigs.length, funder, at: Date.now() / 1000 };
+  // 1000+ transactions: oldest tx is beyond the fetched page, so age is unknown but clearly not a fresh wallet
+  const info = { ageDays: sigs.length >= 1000 ? 9999 : oldest?.blockTime ? (Date.now() / 1000 - oldest.blockTime) / 86400 : 0, txs: sigs.length, funder, at: Date.now() / 1000 };
   cache.wallets[w] = info;
   await sleep(400);
   return info;
@@ -72,7 +73,7 @@ export async function runIndex() {
   for (const w of new Set(trades.filter((t) => t.side === "buy").map((t) => t.wallet))) wallets.set(w, await walletInfo(w));
   const now = Math.floor(Date.now() / 1000);
   // bracket: the 32 nations in list order, pairs (1v2, 3v4, ...). Before the cup starts: one open "preview" window since the pools opened.
-  const order = NATIONS.map((n) => n.symbol);
+  const order = CUP.order || NATIONS.map((n) => n.symbol);   // optional custom bracket (e.g. a 2-coin test match)
   const rounds = [];
   let alive = order;
   const start = CUP.start ? Date.parse(CUP.start) / 1000 : null;
