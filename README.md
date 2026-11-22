@@ -40,3 +40,6 @@ node sim.js
 - Telegram: https://t.me/fairflags
 
 We never DM first and never ask for a seed phrase. Nothing here is financial advice.
+
+## Licence
+MIT. Free to use, copy and change; keep the licence notice. See LICENSE.
