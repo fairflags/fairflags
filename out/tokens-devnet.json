@@ -1,0 +1,299 @@
+[
+ {
+  "symbol": "NCUP",
+  "name": "Nations Cup",
+  "mint": "7swoeUG7RZ6Xgiz5wNA7NR5PTvuW4PakwGGacKswmjSU",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CARG",
+  "name": "Argentina Cup Coin",
+  "mint": "6mrtf4rohvHnR1Q9ufyoLmAqyPqUHCeLKEsk6dw7AEBF",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CBRA",
+  "name": "Brazil Cup Coin",
+  "mint": "Ft2mHiRnMErdWtBwsvEmV4uLnwcBSPMHNMjpMJo725ui",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CFRA",
+  "name": "France Cup Coin",
+  "mint": "HoQzW54ryePtCNwJFxFWDBRXv46xkAEeNMbVpcL3HvFm",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CENG",
+  "name": "England Cup Coin",
+  "mint": "DdYVev9AgPMN644He5nRE2h4gsYhCELx44DsWZyd6Y3W",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CESP",
+  "name": "Spain Cup Coin",
+  "mint": "3Zq8kGDx7H7Q5d6gXQZG8W22yAP28UiTM15SEcTLU2SE",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CGER",
+  "name": "Germany Cup Coin",
+  "mint": "9Kf8y89oHiUFswrntiVrTEoW57vuZy1J5aFGHDHdVWRr",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CPOR",
+  "name": "Portugal Cup Coin",
+  "mint": "9ozNAzXDKqSgJFmL5U9BmovtRmyNJoJ9uEZgyy1byi53",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CNED",
+  "name": "Netherlands Cup Coin",
+  "mint": "6QTZinwisBMVpuKgzmeHG7NCTLaQHj5kNPLczmqo6xJB",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CITA",
+  "name": "Italy Cup Coin",
+  "mint": "9tcEkNVyzbFEY78vWA3PH5vHPmpufLmamwfRiYjYtga9",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CBEL",
+  "name": "Belgium Cup Coin",
+  "mint": "HDXMsTxVEgL1yLrXuqbhNKiaBReyZkjN6bhfq4iw33ys",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CCRO",
+  "name": "Croatia Cup Coin",
+  "mint": "F7FJuo5Vmiei3Rje2CFiFR23xg6NuZr6DbK3owv4gMpq",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CURU",
+  "name": "Uruguay Cup Coin",
+  "mint": "6vodvJLseNWTGrYeQLrraBBWbNkrVeJHbKxjEynmVYgu",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CMAR",
+  "name": "Morocco Cup Coin",
+  "mint": "7oPHW6PgdZCi8n6F81JFfAEmXepGKgnV8eY2RiAWEa2k",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CUSA",
+  "name": "USA Cup Coin",
+  "mint": "7kiENZDxDCzX8mHACjDq2C6M6MRWbQTbu8bgierG7kHi",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CMEX",
+  "name": "Mexico Cup Coin",
+  "mint": "3QYeBujP8htefShu7cZm31AcD9ZsQ3cuLFnNFSn1SPRy",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CJPN",
+  "name": "Japan Cup Coin",
+  "mint": "4R4WFdUUz1GMp5aNqMCVZm1DEvCUn116KfDVPEUTgSBH",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CKOR",
+  "name": "South Korea Cup Coin",
+  "mint": "CM4fp27DhSWYD9Sk7hqAsJhayWJYQcDhTSvfpU1EHV4F",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CSEN",
+  "name": "Senegal Cup Coin",
+  "mint": "A1a4DAt3hVQ4Thmsamuo2dScLEzXWHrbs8hiyquCjX7Y",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CNGA",
+  "name": "Nigeria Cup Coin",
+  "mint": "54QXewUDVk6Zyi5fLLXNKhpxVZbjrckCTZuhN7T5DTkJ",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CEGY",
+  "name": "Egypt Cup Coin",
+  "mint": "DggB7hAKRenaC8tbDjg99rRoYG6wKhXjVKhFhiK5V97U",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CCOL",
+  "name": "Colombia Cup Coin",
+  "mint": "AA8Wo8gxGwwfSACBoWzbrDEQdeTGdipcV8zrhiLRCAhy",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CSUI",
+  "name": "Switzerland Cup Coin",
+  "mint": "Ag5uVkxiC8MfQixZBpcautsjoszBpWGv6hTkA9AeoKbg",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CDEN",
+  "name": "Denmark Cup Coin",
+  "mint": "A3zJiLYGVyZZZLPAwEsmPHryECdUetokqmAsSE6B7Vro",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CPOL",
+  "name": "Poland Cup Coin",
+  "mint": "6JvppVUnxZwFx9c8TBGMrEQsvnfU9zzkZ2y1hs2CnUxC",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CTUR",
+  "name": "Turkey Cup Coin",
+  "mint": "64cD4ET6W7wNK5BYAj5Zmwnsm2wXH2CD8qwS8agen8c",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CKSA",
+  "name": "Saudi Arabia Cup Coin",
+  "mint": "J6fb5JaZcYXDHQ4cE7JmptSmQSYpnt17boG9dU9pZUHh",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CAUS",
+  "name": "Australia Cup Coin",
+  "mint": "FZpeRERCk9h76cw9FUQZYEXtikquL9BZVmqHBEH8WbTw",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CCAN",
+  "name": "Canada Cup Coin",
+  "mint": "42GTsANjdZQRW7MBRS2mMmmYPqZNybTPkU451B2Beuts",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CGHA",
+  "name": "Ghana Cup Coin",
+  "mint": "67eEHrSscgP6jAu7HocWwM4HCiHjycGSXuNKBARSrZYH",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CCIV",
+  "name": "Ivory Coast Cup Coin",
+  "mint": "FpmDQA9D5EcdgPcMx6NdnW5w36uNqB914p6nrFQ8EkcQ",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CECU",
+  "name": "Ecuador Cup Coin",
+  "mint": "AjjMJZ8WAmgTK6Qb2mYnSNSU4WxfRE3QzBPf1AVRmFwZ",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ },
+ {
+  "symbol": "CSRB",
+  "name": "Serbia Cup Coin",
+  "mint": "AE4CM7x8fHsxNhSv1Sr6b7FzPyCPdAsYVuzv3VKqBvEp",
+  "supply": "1000000000000000",
+  "decimals": 6,
+  "mintAuthority": null,
+  "freezeAuthority": null
+ }
+]

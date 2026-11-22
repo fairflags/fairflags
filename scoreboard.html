@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nations Cup</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --line: #30363d; --text: #e6edf3; --muted: #8b949e; --accent: #3fb950; --lose: #f85149; --live: #d29922; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --bg: #f6f8fa; --card: #ffffff; --line: #d0d7de; --text: #1f2328; --muted: #57606a; --accent: #1a7f37; --lose: #cf222e; --live: #9a6700; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { padding: 16px; border-bottom: 1px solid var(--line); }
+  h1 { margin: 0; font-size: 22px; }
+  .sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  main { padding: 16px; max-width: 1100px; margin: 0 auto; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+  .card b { display: block; font-size: 20px; }
+  .card span { color: var(--muted); font-size: 12px; }
+  h2 { font-size: 17px; margin: 22px 0 8px; display: flex; gap: 8px; align-items: center; }
+  .pill { font-size: 11px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
+  .pill.live { color: var(--live); border-color: var(--live); } .pill.finished { color: var(--accent); border-color: var(--accent); }
+  .matches { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px; }
+  .match { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+  .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 0; }
+  .row .n { font-weight: 600; } .row .s { font-variant-numeric: tabular-nums; }
+  .row.win .n { color: var(--accent); } .row.lose { opacity: .55; }
+  .meta { color: var(--muted); font-size: 11px; }
+  details { margin-top: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  summary { cursor: pointer; font-weight: 600; }
+  code { font-size: 12px; word-break: break-all; }
+  .err { color: var(--lose); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Nations Cup <span class="pill" id="net">devnet</span></h1>
+  <div class="sub">32 country coins. Score = qualified real buyers still holding at a random snapshot (trading volume does not count). <span id="upd"></span></div>
+</header>
+<main>
+  <div class="cards">
+    <div class="card"><b id="trades">-</b><span>trades indexed</span></div>
+    <div class="card"><b id="fees">-</b><span>pool fees earned (SOL)</span></div>
+    <div class="card"><b id="prize">-</b><span>prize pool (SOL)</span></div>
+    <div class="card"><b id="org">-</b><span>organiser share (SOL, disclosed)</span></div>
+  </div>
+  <div id="rounds"></div>
+  <details><summary>Scoring rules</summary><div id="rules"></div></details>
+  <details><summary>Pools (devnet addresses)</summary><div id="pools"></div></details>
+</main>
+<script>
+const fmt = (x, d = 4) => (x == null ? "-" : Number(x).toFixed(d));
+async function load() {
+  try {
+    const r = await fetch("api/scoreboard", { cache: "no-store" });
+    const d = await r.json();
+    document.getElementById("net").textContent = d.network;
+    document.getElementById("upd").textContent = "Updated " + new Date(d.updated * 1000).toLocaleString();
+    document.getElementById("trades").textContent = d.trades;
+    document.getElementById("fees").textContent = fmt(d.treasury.feesSol);
+    document.getElementById("prize").textContent = fmt(d.treasury.prizeSol) + " (" + d.treasury.prizeSharePct + "%)";
+    document.getElementById("org").textContent = fmt(d.treasury.organiserSol) + " (" + d.treasury.organiserSharePct + "%)";
+    const R = document.getElementById("rounds"); R.innerHTML = "";
+    for (const rd of d.rounds) {
+      const h = document.createElement("h2");
+      h.innerHTML = `${rd.name} <span class="pill ${rd.status}">${rd.status === "preview" ? "preview: scores since the pools opened" : rd.status}</span>`;
+      R.appendChild(h);
+      const g = document.createElement("div"); g.className = "matches";
+      for (const m of rd.matches) {
+        const el = document.createElement("div"); el.className = "match";
+        const row = (s, sc, net, vol, ex) => { const w = m.winner === s, l = m.winner && !w; return `<div class="row ${w ? "win" : ""} ${l ? "lose" : ""}"><span class="n">${s}</span><span class="s">${sc} holders</span></div><div class="meta">net ${fmt(net, 3)} SOL · volume ${fmt(vol, 2)} SOL${ex && Object.values(ex).some((v) => v) ? " · excluded " + Object.entries(ex).filter(([, v]) => v).map(([k, v]) => k + " " + v).join(", ") : ""}</div>`; };
+        el.innerHTML = row(m.a, m.scoreA, m.netA, m.volA, m.excludedA) + row(m.b, m.scoreB, m.netB, m.volB, m.excludedB);
+        g.appendChild(el);
+      }
+      R.appendChild(g);
+    }
+    const ru = d.rules;
+    document.getElementById("rules").innerHTML = `<p>A buyer counts if: bought at least ${ru.minBuySol} SOL in the round; wallet older than ${ru.minWalletAgeDays} days with ${ru.minWalletTxs}+ transactions; not one of more than ${ru.clusterMax} buyers funded by the same wallet; not in a block bundle of more than ${ru.bundleMax} buyers; still holds at least ${ru.holdShare * 100}% of what it bought at the snapshot. Ties: net SOL put in. The snapshot is a random moment in the last ${d.cup.snapshotWindowHours} hours of the round, fixed by a future block hash.</p>`;
+    document.getElementById("pools").innerHTML = d.pools.map((p) => `<div><b>${p.symbol}</b> pool <code>${p.pair}</code></div>`).join("");
+  } catch (e) { document.getElementById("rounds").innerHTML = `<p class="err">Could not load the scoreboard: ${e.message}</p>`; }
+}
+load(); setInterval(load, 60000);
+</script>
+</body>
+</html>
